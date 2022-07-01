@@ -37,11 +37,37 @@ def set_alarm():
     time_entry.configure(state='disabled')
     alarm_button.configure(state='disabled')
 
+    input_time = time_var.get()
+    global exception_label
+
+    try:
+        time.strptime(input_time[:8], '%H:%M:%S')
+
+    except ValueError:
+
+        exception_label.configure(text="Wrong Time Format !")
+        time_var.set('00:00:00')
+        time_entry.configure(state='normal')
+        alarm_button.configure(state='normal')
+
+    else:
+        if len(input_time) != 8:
+            exception_label.configure(text="Wrong Time Format !")
+            time_var.set('00:00:00')
+            time_entry.configure(state='normal')
+            alarm_button.configure(state='normal')
+
+        else:
+            exception_label.pack_forget()
+
 
 time_var = StringVar()
 time_var.set('00:00:00')
 time_entry = Entry(window, width=50, font="ds-digital 35 bold", justify=CENTER, textvariable=time_var, bg="wheat")
 time_entry.pack()
+
+exception_label = Label(window, text="Alarm Not Set !\n Use 24 Hour Format", font="Helvetica 15", bg="red")
+exception_label.pack()
 
 alarm_button = Button(window, text="Set Alarm", bg="black", fg="white", font="Helvetica 15", command=set_alarm)
 alarm_button.pack(pady=20)
