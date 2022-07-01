@@ -27,7 +27,7 @@ def update():
         stop_alarm_button.configure(state=NORMAL)
         notification.notify(title="ALARM", message="WAKE UP", app_name="ALARM CLOCK", app_icon=None, timeout=30,
                             toast=False)
-        winsound.PlaySound("requirements/mixkit-digital-clock-digital-alarm-buzzer-992.wav",
+        winsound.PlaySound("requirements/clock-alarm-buzzer.wav",
                            winsound.SND_FILENAME + winsound.SND_LOOP + winsound.SND_ASYNC)
 
     time_label.after(1000, update)
