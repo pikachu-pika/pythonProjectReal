@@ -23,7 +23,7 @@ def update():
     current_time = time.strftime(datetime.datetime.now().strftime('%H:%M:%S'))
     time_label.config(text=current_time)
 
-    if current_time == time_var.get():
+    if current_time == input_time:
         stop_alarm_button.configure(state=NORMAL)
         notification.notify(title="ALARM", message="WAKE UP", app_name="ALARM CLOCK", app_icon=None, timeout=30,
                             toast=False)
@@ -37,6 +37,7 @@ def set_alarm():
     time_entry.configure(state='disabled')
     alarm_button.configure(state='disabled')
 
+    global input_time
     input_time = time_var.get()
     global exception_label
 
@@ -65,6 +66,7 @@ time_var = StringVar()
 time_var.set('00:00:00')
 time_entry = Entry(window, width=50, font="ds-digital 35 bold", justify=CENTER, textvariable=time_var, bg="wheat")
 time_entry.pack()
+input_time = ""
 
 exception_label = Label(window, text="Alarm Not Set !\n Use 24 Hour Format", font="Helvetica 15", bg="red")
 exception_label.pack()
@@ -75,6 +77,10 @@ alarm_button.pack(pady=20)
 
 def stop_alarm():
     winsound.PlaySound(None, winsound.SND_FILENAME)
+    time_var.set('00:00:00')
+    time_entry.configure(state='normal')
+    alarm_button.configure(state='normal')
+    stop_alarm_button.configure(state="disabled")
 
 
 stop_alarm_button = Button(window, text="Stop Alarm", bg="black", fg="white", font="Helvetica 15", command=stop_alarm,
