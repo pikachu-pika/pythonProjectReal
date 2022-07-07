@@ -15,7 +15,7 @@ mode = StringVar()
 Result = StringVar()
 
 
-def myEncode(key, message):
+def my_encode(key, message):
     enc = []
 
     for i in range(len(message)):
@@ -25,7 +25,7 @@ def myEncode(key, message):
     return base64.urlsafe_b64encode("".join(enc).encode()).decode()
 
 
-def myDecode(key, message):
+def my_decode(key, message):
     dec = []
     message = base64.urlsafe_b64decode(message).decode()
 
@@ -36,19 +36,19 @@ def myDecode(key, message):
 
 
 def Mode():
-    if (mode.get() == 'e'):
-        Result.set(myEncode(private_key.get(), Text.get()))
-    elif (mode.get() == 'd'):
-        Result.set(myDecode(private_key.get(), Text.get()))
+    if mode.get() == 'e':
+        Result.set(my_encode(private_key.get(), Text.get()))
+    elif mode.get() == 'd':
+        Result.set(my_decode(private_key.get(), Text.get()))
     else:
         Result.set('Invalid Mode')
 
 
-def Exit():
+def my_exit():
     root.destroy()
 
 
-def Reset():
+def my_reset():
     Text.set("")
     private_key.set("")
     mode.set("")
@@ -67,9 +67,9 @@ Entry(root, font='arial 10 bold', textvariable=Result, bg='ghost white').place(x
 
 Button(root, font='arial 10 bold', text='RESULT', padx=2, bg='LightGray', command=Mode).place(x=60, y=150)
 
-Button(root, font='arial 10 bold', text='RESET', width=6, command=Reset, bg='LimeGreen', padx=2).place(x=80, y=190)
+Button(root, font='arial 10 bold', text='RESET', width=6, command=my_reset, bg='LimeGreen', padx=2).place(x=80, y=190)
 
-Button(root, font='arial 10 bold', text='EXIT', width=6, command=Exit, bg='OrangeRed', padx=2, pady=2).place(x=180,
-                                                                                                             y=190)
+Button(root, font='arial 10 bold', text='EXIT', width=6, command=my_exit, bg='OrangeRed', padx=2, pady=2).place(x=180,
+                                                                                                                y=190)
 
 root.mainloop()
